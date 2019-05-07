@@ -1,0 +1,8 @@
+# TODO: use mimeo to open all mime-types?
+text/html                ; $(mimeo -qc %s)              ; nametemplate=%s.html ; needsterminal ;
+text/html                ; w3m -dump %s                 ; nametemplate=%s.html ; copiousoutput ;
+application/octet-stream ; echo "Unknown MIME type" %s                         ; copiousoutput ;
+application/pdf          ; /usr/bin/zathura %s                                 ; copiousoutput ;
+audio/*                  ; /usr/bin/mplayer %s                                 ; copiousoutput ;
+video/*                  ; /usr/bin/mplayer %s                                 ; copiousoutput ;
+image/*                  ; /usr/bin/feh %s                                     ; copiousoutput ;

@@ -1,0 +1,71 @@
+# ### disabe <space> to allow macros to operate on folders with spaces in their paths
+# bind index,pager <Space>    noop
+
+# generic (fallback/global) bindings
+bind generic                Q exit
+
+### index bindings
+bind index g                noop
+bind index gg               first-entry
+bind index G                last-entry
+bind index \eN              search-opposite
+bind index \en              search-next
+bind index n                mail
+bind index L                bottom-page
+bind index M                middle-page
+bind index H                top-page
+bind index <Tab>            next-new-then-unread
+bind index <BackTab>        previous-new-then-unread # BackTab is Shift+Tab
+bind index \ex              collapse-thread
+bind index \eX              collapse-all
+
+### pager bindings
+bind pager /                search
+bind pager j                next-line
+bind pager k                previous-line
+bind pager g                noop
+bind pager gg               top
+bind pager G                bottom
+
+### pager + index bindings
+bind index,pager \#         noop
+bind index,pager \&         noop
+bind index,pager S          save-message
+bind index,pager m          read-subthread
+bind index,pager Q          quit
+bind index \em              toggle-new
+
+### composer bindings
+bind compose \e<return>     send-message
+
+### sidebar bindings
+bind index,pager \e\.       sidebar-toggle-visible
+bind index,pager \e\'       sidebar-next
+bind index,pager \e\;       sidebar-prev
+bind index,pager \e\"       sidebar-page-down
+bind index,pager \e\:       sidebar-page-up
+bind index,pager \e<return> sidebar-open
+
+### index + pager macros
+macro index,pager \ej  "<sidebar-next>" "Select next mailbox"
+macro index,pager \ek  "<sidebar-prev>" "Select previous mailbox"
+macro index,pager \cj  "<sidebar-next><sidebar-open>" "Open next mailbox"
+macro index,pager \ck  "<sidebar-prev><sidebar-open>" "Open previous mailbox"
+macro index,pager \e\] "<sidebar-next-new><sidebar-open>" "Open next mailbox with new mail"
+macro index,pager \e\[ "<sidebar-prev-new><sidebar-open>" "Open last mailbox with new mail"
+macro index,pager \e1  "<change-folder>+$MUTT_ACCOUNT_1/INBOX<enter>" "Select $MUTT_ACCOUNT_1"
+macro index,pager \e2  "<change-folder>+$MUTT_ACCOUNT_2/INBOX<enter>" "Select $MUTT_ACCOUNT_2"
+macro index,pager \e3  "<change-folder>+$MUTT_ACCOUNT_3/INBOX<enter>" "Select $MUTT_ACCOUNT_3"
+macro index,pager \e4  "<change-folder>+$MUTT_ACCOUNT_2/Newsletters<enter>" "Select $MUTT_ACCOUNT_2/Newsletters"
+macro index,pager \eo  "<view-attachments><search>text/html<Enter><view-mailcap><exit><read-subthread><previous-subthread>" "View text/html attachment in browser"
+macro index,pager \e\? "<shell-escape>xdg-open /usr/share/doc/neomutt/manual.html 2>&1 1>/dev/null<Enter>" "View neomutt HTML manual in browser"
+
+### urlscan macros
+# github.com/firecat53/urlscan
+macro index,pager    \cu "<pipe-message> urlscan --compact --dedupe<Enter>" "Call urlscan to extract URLs out of a message"
+macro attach,compose \cu   "<pipe-entry> urlscan --compact --dedupe<Enter>" "Call urlscan to extract URLs out of a message"
+
+### sync macros
+macro index \cr "<shell-escape>offlineimap-oneshot<enter>" "Sync IMAP"
+
+# vim: set ft=muttrc:
